@@ -1,0 +1,50 @@
+
+Objective #1 --> 
+To wrap primitives into Object so that we can handle primitives like Objects
+
+
+Objective #2 -->
+To define several utility methods which are required by primitives for example:
+Integer.toString() will return string form of the primitive.
+
+Wrapper: 8 of them.
+Primitive type	Wrapper class
+boolean			Boolean
+byte				Byte
+char				Character
+float			Float
+int				Integer
+long				Long
+short			Short
+double			Double
+
+
+Every wrapper has atleast two constructors
+1. Which takes in the primitive value to return the object
+Example: public Integer(int value) 
+
+2. Which takes in the String value to return the Object. If the String does not represent
+an Corresponding wrapper type then it is going to give a run time exception 
+NumberFormatException.
+Example: public Integer(String s) throws NumberFormatException
+
+Constructors in Wrapper Classes
+Char ch = new Char('a') ; --> valid
+Char ch = new Char("a") ; --> Invalid
+Hence Character wrapper Class have only one constructor
+
+Byte Constructors allowed byte or String
+Short Constructor allowed Short or String
+Integer Constructor allowed int or String
+Long Constructor allowed long or String
+FLoat Constructor allowed float or String or double
+Double Constructor allowed double or String
+Character Constructor allowed character
+Boolean Constructor allowed boolean or String.
+
+
+
+In all wrapper classes the toString method is overriden to return the content directly.
+If it had not been overriden then it will result in the default toString 
+which is Object method toString.
+

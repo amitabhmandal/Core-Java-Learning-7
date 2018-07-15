@@ -1,0 +1,46 @@
+=======================================================================
+What is the difference between association, aggregation and composition
+=======================================================================
+
+Aggregation and Composition are subsets of association meaning they are 
+specific cases of association
+
+In both aggregation and composition object of one class "owns" object of another class. 
+But there is a subtle difference:
+
+***********
+AGGREGATION:
+***********
+Aggregation implies a relationship where the child can exist independently of the parent. 
+Example: Class (parent) and Student (child). Delete the Class and the Students still exist.
+
+************
+COMPOSITION:
+************
+Composition implies a relationship where the child cannot exist independent of the parent. 
+Example: House (parent) and Room (child). Rooms don't exist separate to a House.
+
+=============================================================
+Aggregation vs Composition can be differentiated on Basic of 
+Dependency
+Type Of RelationShip
+Type Of Association
+=============================================================
+
+***********
+Dependency:
+*********** 
+Aggregation implies a relationship where the child can exist independently of the parent. 
+For example, Bank and Employee, delete the Bank and the Employee still exist. 
+whereas Composition implies a relationship where the child cannot exist independent of the parent. 
+Example: Human and heart, heart don’t exist separate to a Human
+
+********************
+Type of Relationship:
+******************** 
+Aggregation relation is “has-a” and composition is “part-of” relation.
+
+********************
+Type of association:
+******************** 
+Composition is a strong Association whereas Aggregation is a weak Association.

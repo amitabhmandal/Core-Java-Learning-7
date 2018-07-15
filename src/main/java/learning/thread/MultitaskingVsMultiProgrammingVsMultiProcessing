@@ -1,0 +1,61 @@
+==================
+Multiprogramming –
+==================
+ 
+A computer running more than one program at a time (like running Excel and Firefox simultaneously).
+More than one task/program/job/process can reside into the main memory at one point of time. 
+This ability of the OS is called multiprogramming.
+
+=================
+Multiprocessing –
+================= 
+A computer using more than one CPU at a time.
+
+==============
+Multitasking –
+============== 
+Tasks sharing a common resource (like 1 CPU).
+
+More than one task/program/job/process can reside into the same CPU at one point of time. 
+This ability of the OS is called multitasking.
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+Both multi programming and tasking are same concept of switching task in processor, 
+difference is in the concept and reason of the switching.
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+------------
+MProgramming:
+------------ 
+to not keep processor idle when active task needs longer IO or other non CPU 
+response then, processor loads and works on another task that is not waiting for IO and ready for process.
+
+---------
+MTasking:
+--------- 
+even after MPrograming, to user it may feel like only one task is executing and another is simply 
+waiting to come to cpu. So the active task is also swapped from active CPU and kept aside and another task is brought in CPU 
+for a very small fraction of human time[second], and swapped back to the earlier task again. In this way user will feel both 
+task are alive in CPU at same time. But actually each task is active only once at a given CPU time[in micro or nano second]
+
+-----------
+MProcessing
+-----------
+ is, like my computer have quad core, so I use 4 processor at a time, means 
+4 different multiprogramming instances happen in my machine. And these 4 processors does another numerous no of MTasking.
+
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+So MProcessing>MProgramming>Mtasking
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+--------------
+MultiThreading
+--------------
+And MThreading n another breakup of each task. that also to give user a happy life. 
+Here multiple tasks[like word doc and media player] are not coming in picture, rather small 
+subtasks like coloring of text on word and automatic spell check in word are part of same word executable.
+
+
+

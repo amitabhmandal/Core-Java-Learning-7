@@ -1,0 +1,43 @@
+Inheritance is also known as Is-A-Relationship
+
+It is implemented by using extends keyword.
+
+
+Main Advantage of Using Inheritance
+1. Reusability  - facility to use public methods of base class without rewriting the same.
+2. Extensibility - extending the base class logic as per business logic of the derived class
+3. Data hiding -- base class can decide to keep some data private so that it cannot 
+be altered by the derived class
+4. Overriding--With inheritance, we will be able to override the methods of the base class 
+so that meaningful implementation of the base class method can be designed in the derived class.
+
+
+Disadvantage of Using Inheritance:
+1.One of the main disadvantages of inheritance in Java (the same in other object-oriented 
+languages) is the increased  time/effort it takes the program to jump through all the 
+levels of overloaded classes. If a given class has ten levels of  abstraction above it, 
+then it will essentially take ten jumps to run through a function defined in each of those 
+classes 
+
+2.Main disadvantage of using inheritance is that the two classes (base and inherited class) 
+get tightly coupled. This means one cannot be used independent of each other.
+
+3. Also with time, during maintenance adding new features both base as well as derived 
+classes are required to be  changed. If a method signature is changed then we will 
+be affected in both cases (inheritance & composition)
+
+4. If a method is deleted in the "super class" or aggregate, then we will have to 
+re-factor in case of using that  method. Here things can get a bit complicated in case of 
+inheritance because our programs will still compile, but the  methods of the subclass will 
+no longer be overriding superclass methods. These methods will become independent  methods 
+in their own right.
+
+Effective Java™, Second Edition By: Joshua Bloch
+
+Chapter 4. Classes and Interfaces
+
+Item 16: Favor composition over inheritance
+
+Item 17: Design and document for inheritance or else prohibit it
+
+Item 18: Prefer interfaces to abstract classes

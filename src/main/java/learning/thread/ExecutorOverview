@@ -1,0 +1,91 @@
+Why Executor Framework is needed 
+
+
+When dealing with conventional API then there are many ways to create a 
+thread instance and the task of the thread.
+
+But while implementing executor framework there is technically one way of doing it.
+
+
+The best thing about executor framework is that we just need to define the task definition
+that needs to be run in a seperate thread. This needs to be passed onto an executor service.
+
+The executor service automatically creates the thread and runs our task in that thread.
+
+Thus it helps us not to create the thread object and start it.
+
+Executors are preferred way of running tasks in Java since JDK1.7.
+
+They optimize multi threading capabilties of Java.
+and optimize efficiency of resources that can also be tuned.
+
+Thread creation has some amount of CPU over-head.
+It is wasteful if we have to create a new thread everytime we need to execute a task.
+
+That is why executor service uses thread pools internally.
+In this case threads are recycled and reused.
+
+In some of the cases threads are allocated up-front.
+
+If required they can be started at the time of executor creation itself.
+
+In this way executor framework decouples task submission from thread-creation-and-management.
+
+Each thread in the pool executes multiple tasks one by one from queue.
+
+The threads continue to do till the time the queue becomes empty.
+
+After that the thread just blocks the task queue and wait for more tasks.
+
+Once all the tasks are completed or the application is going to be shut down then the executor
+service needs to be stopped.
+
+This will stop the executor service and stop receiving any more tasks for execution.
+
+All the tasks that were currently executing will continue to execute till completion.
+
+All the pending tasks in the queue would also be executed.
+
+If required then we can instruct the executor to interrupt all the running tasks.
+This can be done by calling it's shutdown method.
+In this case it will not run the pending tasks.
+
+Frequently used classes and Interfaces while using executor framework.
+
+Executor(I)
+ExecutorService(I)
+Executors(C)
+Future(I)
+
+
+Executor(I)
+It's main purpose is to decouple the task submission step from thread creation and running 
+steps
+
+void execute(Runnable task).
+It has only one method.
+
+
+ExecutorService(I) - Second most important interface in this framework.
+It extends the executor interface.
+
+It provides the lifeycle to the executors. ie
+It provides for 
+1. Initialization phase - In this allocates required number of threads and starts them too 
+if required. This phase is usually hidden and can be customized by passing parameters through
+executor class that actually boot straps the service.
+
+
+2. Service Phase - In the service phase it provides it services by running the submitted task.
+  
+3. destruction phase - In the destruction phase it shuts down and stops accepting new tasks
+for running.
+
+
+
+
+
+
+
+
+

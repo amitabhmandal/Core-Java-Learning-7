@@ -1,0 +1,142 @@
+===========================================
+Java class level lock vs. object level lock
+===========================================
+
+
+@@@@@@@@@@@@@@
+Valid Question
+@@@@@@@@@@@@@@
+If a thread T1 enters a method m1 by obtaining the class level lock, 
+does this mean another thread T2 cannot run a different method m2 by obtaining 
+the object level lock?
+
+The "class level lock" is just a regular lock on a different object, namely SomeClass.class
+
+The "object level lock" locks on this.
+
+Just to make sure I'm following your understanding of the terminology, you're wondering if m1 and m2 can 
+be run concurrently as they are defined below:
+
+public class SomeClass {
+    public synchronized static void m1() {
+       //do something
+    }
+
+    public synchronized void m2() {
+       //do something
+    }
+}
+
+And the answer is yes, m1 and m2 can be run concurrently. It is functionally equivalent to this:
+public class SomeClass {
+    public static void m1() {
+        synchronized (SomeClass.class) {
+           //do something
+        }
+    }
+    public void m2() {
+        synchronized (this) {
+           //do something
+        }
+    }
+}
+
+Since they are synchronizing on completely different objects, they are not mutually exclusive.
+
++++++++++++++++++++++
+Object level locking:
++++++++++++++++++++++
+Object level locking is mechanism when you want to synchronize a non-static method or non-static code block such 
+that only one thread will be able to execute the code block on given instance of the class. 
+This should always be done to make instance level data thread safe. This can be done as below :
+
+public class DemoClass 
+{ 
+  public synchronized void demoMethod(){} 
+} 
+
+or 
+
+public class DemoClass 
+{ 
+  public void demoMethod(){ 
+  synchronized (this) 
+  { 
+   //other thread safe code 
+  } 
+ } 
+} 
+
+or 
+
+public class DemoClass 
+{ 
+  private final Object lock = new Object(); 
+  public void demoMethod(){ 
+  synchronized (lock) 
+ { 
+  //other thread safe code 
+ } 
+} 
+
+It is not possible for two invocations of synchronized methods on the same object to interleave. When one thread is executing 
+a synchronized method for an object, all other threads that invoke synchronized methods for the same object block 
+(suspend execution) until the first thread is done with the object.
+
+Assume that you have two synchronized methods m1 and m2 on Object O. If Thread T1 is in middle of execution of method m1, 
+then Thread T2 has to wait to call method m2 on same object O unless Thread T1 release lock on method m1.
+
+
+++++++++++++++++++++
+Class level locking:
+++++++++++++++++++++
+Class level locking prevents multiple threads to enter in synchronized block in any of all available instances on runtime. 
+This means if in runtime there are 100 instances of DemoClass, then only one thread will be able to execute demoMethod() 
+in any one of instance at a time, and all other instances will be locked for other threads. This should always be done to 
+make static data thread safe.
+
+public class DemoClass 
+{ 
+  public synchronized static void demoMethod(){} 
+} 
+
+or 
+
+public class DemoClass 
+{ 
+  public void demoMethod(){ 
+  synchronized (DemoClass.class) 
+  { 
+   //other thread safe code 
+  } 
+ } 
+} 
+
+or 
+
+public class DemoClass 
+{ 
+ private final static Object lock = new Object(); 
+ public void demoMethod(){ 
+ synchronized (lock) 
+  { 
+   //other thread safe code 
+  } 
+ } 
+}
+
+Thread acquires the intrinsic lock for the Class object associated with the class. Thus access to class's static fields is 
+controlled by a lock that's distinct from the lock for any instance of the class.
+
+Assume that method m1 is static synchrnozed and method m2 is also static synchronized and you have two different objects 
+o1 and o2.
+
+If Thread T1 is in middle of execution of method m1 on object o1, then Thread T2 has to wait to call method m2 on object o2 
+unless Thread T1 release lock on method m1.
+
+
+
+
+
+
+

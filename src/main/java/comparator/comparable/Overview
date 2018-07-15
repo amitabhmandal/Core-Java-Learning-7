@@ -1,0 +1,292 @@
+java.lang.Comparable vs java.util.Comparator
+
+Comparator does everything that comparable does, plus more.
+
+|                                                        | Comparable | Comparator
+  ._______________________________________________________________________________
+  Is used to allow Collections.sort to work               | yes        |   yes
+  Can compare multiple fields                             | yes        |   yes
+  Lives inside the class you’re comparing and serves      |            |
+  as a “default” way to compare                           | yes        |   yes
+  Can live outside the class you’re comparing             | no         |   yes
+  Can have multiple instances with different method names | no         |   yes
+  Input arguments can be a list of                        | just Object|   Any type
+  Can use enums                                           | no         |   yes
+
+=============
+Difference #1
+=============
+
+Comparable: int objOne.compareTo(objTwo)
+Comparator: int compare(objOne, objTwo)
+
+A comparable object is capable of comparing itself with another object. 
+The class itself must implement the java.lang.Comparable interface in order 
+to be able to compare its instances. Whereas, A comparator object is capable of 
+comparing two different objects. The class is not comparing its instances, but
+ some other class’s instances. This comparator class must implement the 
+ java.util.Comparator interface.
+ 
+
+=============
+Difference #2
+=============
+
+comparable:
+Returns
+negative if objOne < objTwo
+zero if objOne == objTwo
+positive if objOne > objTwo
+
+comparator: same as comparable
+
+The second comparison is not a difference, it basically specifies the return 
+values of the methods and they are same for both.
+
+
+
+=============
+Difference #3
+=============
+comparable:
+You must modify the class whose instances you want to sort.
+
+comparator: 
+You build a class separate from the class whose instances you
+want to sort.
+
+To understand this better let’s take the example of our Student class. 
+In case of comparable, your Student class implements Comparable interface 
+and overrides compareTo method. Let’s say at one point, your teammate needs
+ to sort students based on their rollNumbers.  So his student class would look 
+ something like:
+ 
+class Student implements Comparable<Student> {
+  private String name;
+  private int rollNumber;
+  private int marksObtained;
+  
+  @Override
+  public int compareTo(Student otherStudent) {
+    return this.rollNumber - otherStudent.rollNumber;
+  }
+}
+
+But if at some later point of time you need your students to be sortable based on 
+their marks, the above Class won’t work. You will have to modify the compareTo 
+implementation for marksObtained by the student. Something like:
+
+@Override
+public int compareTo(Student otherStudent) {
+  return this.marksObtained - otherStudent.marksObtained;
+}
+
+So, the problem here is you need to modify your class every time the sorting requirement changes which is 
+not a good idea.
+
+As the Open/Close design principle goes “software entities (classes, modules, 
+functions, etc.) should be open for extension, but closed for modification”
+
+If you violate this principle you might end up writing the test cases for the 
+class which was already tested and worse, you might end up breaking someone 
+else’s code who depended on Student’s rollNumber for sorting (your team mate). 
+Right?
+
+So, now the Comparator comes into picture, if instead of using Comparable you 
+had used Comparator, you wouldn’t have to violate any design principle. 
+Your would write his Comparators like:
+
+public class StudentRollNumberComparator implements Comparator<Student> {
+  @Override
+  public int compare(Student st1, Student st2) {
+    return st1.getRollNumber() - st2.getRollNumber();
+  }
+}
+
+And you can write:
+
+public class StudentMarksComparator implements Comparator<Student> {
+ 
+  @Override
+  public int compare(Student st1, Student st2) {
+    return st1.getMarksObtained() - st2.getMarksObtained();
+  }
+}
+
+Now, you don’t need to change the existing code and break someone else’s code. 
+Any Student aor subtype can now use these comparators to do the comparisons.
+
+Only one sort sequence can be created vs Many sort sequences can be created.
+
+As we saw above every time the requirement changed, we needed to modify our 
+Comparable Student because with Comparable we have only one sort sequence but 
+with Comparator we created two different sort sequences. You can create even 
+a third one which will let you sort based on Student names.
+
+Implemented frequently in the API by: String, Wrapper classes, Date, Calendar vs 
+Meant to be implemented to sort instances of third-party classes.
+
+
+
+=============
+Difference #4
+=============
+comparable:
+Only one sort sequence can be created.
+
+comparator: 
+Many sort sequences can be created.
+
+=============
+Difference #5
+=============
+
+comparable: 
+Implemented frequently in the API by: String, Wrapper classes, Date, Calendar.
+
+if sorting of objects needs to be based on a natural order then use Comparable 
+
+Comparator:
+Meant to be implemented to sort instances of third-party classes.
+
+if sorting needs to be done on different attributes of the object, 
+use Comparator in Java
+
+
+=============
+Difference #6
+=============
+Single Versus Multiple Sorting Criteria
+If you have only single sorting criteria to sort your elements then you can use 
+Comparable but if you have more than one sorting criterias then you have to go for
+ Comparator also.
+
+
+=============
+Difference #7
+=============
+Arays.sort() and Collection.sort()
+
+Using Comparable has a advantage over Comparator. If your class implements 
+Comparable then Arrays.sort() and Collections.sort() can sort its instances 
+automatically. You do not need to write separate comparators and pass them to 
+overloaded sort() as shown
+
+=============
+Difference #8
+=============
+This is another advantage of Comparable over Comparator. Objects which implement
+ Comparable interface can be used as keys in a SortedMap( like TreeMap) or as 
+ elements in a SortedSet  (like TreeSet). Otherwise you have to write separate
+  Comparator and pass it in the constructor of TreeMap.
+  
+
+
+
+Among other things:
+==============================
+General Contract of Comparable
+==============================
+
+Compares this object with the specified object for order. Returns a negative 
+integer, zero, or a positive integer as this object is less than, equal to, 
+or greater than the specified object.
+
+Throws ClassCastException if the specified object’s type prevents it from being 
+compared to this object.
+
+public class ComparableExceptionDemo {
+  public static void main(String[] args) {
+    TreeMap<NonComparablePerson, Integer> treeMap = new TreeMap<>();
+    NonComparablePerson personOne = new NonComparablePerson();
+    NonComparablePerson personTwo = new NonComparablePerson();
+    
+    treeMap.put(personOne, 1);
+    treeMap.put(personTwo, 2);
+    
+    System.out.println(treeMap);
+  }
+}
+
+class NonComparablePerson {
+  String name;
+  int age;
+}
+
+
+//===================== output ===============
+
+Exception in thread "main" java.lang.ClassCastException: my.java.demo.NonComparablePerson cannot be cast to java.lang.Comparable
+	at java.util.TreeMap.compare(TreeMap.java:1290)
+	at java.util.TreeMap.put(TreeMap.java:538)
+	at my.java.demo.ComparableExceptionDemo.main(ComparableExceptionDemo.java:12)
+	
+Reflexivity:
+
+The implementor must ensure sgn(x.compareTo(y)) == -sgn(y.compareTo(x)) for 
+all x and y. (This implies that x.compareTo(y) must throw an exception 
+iff y.compareTo(x) throws an exception.)
+
+The first contract says that if you reverse the direction of a comparison between 
+two object references, the expected thing happens: if the first object is less 
+than the second, then the second must be greater than the first; if the first 
+object is equal to the second, then the second must be equal to the first; and 
+if the first object is greater than the second, then the second must be less 
+than the first.
+
+Transitivity:
+
+The implementor must also ensure that the relation is transitive: 
+(x.compareTo(y)>0 && y.compareTo(z)>0) implies x.compareTo(z)>0.
+
+The second contract says that if one object is greater than a second, 
+and the second is greater than a third, then the first must be greater than the third.
+
+Symmetry:
+The implementor must ensure that x.compareTo(y) == 0 implies that 
+sgn(x.compareTo(z)) == sgn(y.compareTo(z)), for all z.
+
+Means that all objects that compare as equal must yield the same results when 
+compared to any other object.
+
+consistency with equals:
+It is strongly recommended, but not strictly required, that 
+(x.compareTo(y) == 0) == (x.equals(y)). Generally speaking, any class 
+that implements the Comparable interface and violates this condition should 
+clearly indicate this fact. The recommended language is “Note: This class has 
+a natural ordering that is inconsistent with equals.”
+
+This last paragraph of the compareTo contract, which is a strong suggestion 
+rather than a contract, simply states that the equality test imposed by the 
+compareTo method should generally return the same results as the equals method. 
+If this provision is obeyed, the ordering imposed by the compareTo method is said 
+to be consistent with equals. If it’s violated, the ordering is said to be 
+inconsistent with equals. A class whose compareTo method imposes an order that 
+is inconsistent with equals will still work, but sorted collections containing 
+elements of the class may not obey the general contract of the appropriate 
+collection interfaces (Collection, Set, or Map). This is because the general 
+contracts for these interfaces are defined in terms of the equals method, but 
+sorted collections use the equality test imposed by compareTo in place of equals. 
+It is not a catastrophe if this happens, but it’s something to be aware of.
+
+For example, consider the BigDecimal class, whose compareTo method is 
+inconsistent with equals. If you create a HashSet instance and add new 
+BigDecimal(“6.0”) and new BigDecimal(“6.00”), the set will contain two 
+elements because the two BigDecimal instances added to the set are unequal 
+when compared using the equals method. If, however, you perform the same 
+procedure using a TreeSet instead of a HashSet, the set will contain only 
+one element because the two BigDecimal instances are equal when compared using 
+the compareTo method. (See the BigDecimal documentation for details.)
+
+==============================
+General Contract of Comparator
+==============================
+It is same as comparable
+
+
+
+
+
+
+
+
