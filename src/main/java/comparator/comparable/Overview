@@ -283,7 +283,8 @@ General Contract of Comparator
 ==============================
 It is same as comparable
 
-
+All Known Implementing Classes of Comparator:
+Collator, RuleBasedCollator
 
 
 
