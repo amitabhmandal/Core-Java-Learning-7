@@ -1,4 +1,4 @@
-package collection.learning;
+package collection.learning.map;
 
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -18,12 +18,50 @@ import java.util.WeakHashMap;
  * 
  * each key can map to at most one value
  * 
+ * Duplicate keys not allowed however duplicate values allowed.
+ * 
+ * Each key-value pair is called an Entry. Hence a map is also called as Collection of Entry Objects
+ * 
+ * Some implementations allow null key and null value (HashMap and LinkedHashMap) but some do not (TreeMap).
+ * The order of a map depends on specific implementations, e.g TreeMap and LinkedHashMap have predictable order, 
+ * while HashMap does not.
  * 
  * The Map interface includes methods for 
  * ================
  * basic operations
  * ================ 
  * (such as put, get, remove, containsKey, containsValue, size, and empty),
+ * 
+ * V put(K key, V value) - If the map previously contained a mapping for the key, the old value is 
+ * replaced by the specified value and the old value is returned.
+ * 
+ * void putAll(Map<? extends K,? extends V> m) - 
+ * 
+ * 
+ * V remove(Object key)
+ * 
+ * 
+ * void putAll(Map<? extends K,? extends V> m)
+ * 
+ * void clear()
+ * 
+ * V get(Object key)
+ * 
+ * isEmpty()
+ * 
+ * int size() :  If the map contains more than Integer.MAX_VALUE elements, returns Integer.MAX_VALUE.
+ * 
+ * 
+ * boolean containsKey(Object key)
+ * Returns true if this map contains a mapping for the specified key. More formally, 
+ * returns true if and only if this map contains a mapping for a key k such that 
+ * (key==null ? k==null : key.equals(k)). (There can be at most one such mapping.)
+ * 
+ * boolean containsValue(Object value)
+ * Returns true if this map maps one or more keys to the specified value. More formally, 
+ * returns true if and only if this map contains at least one mapping to a value v such 
+ * that (value==null ? v==null : value.equals(v)).
+ *  
  * 
  * ===============
  * bulk operations
@@ -43,10 +81,28 @@ import java.util.WeakHashMap;
  * as described in The Set Interface section.
  * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  * 
+ * =====================
+ * Why and When Use Maps:
+ * =====================
+ * Maps are perfectly for key-value association mapping such as dictionaries. Use Maps when you want to 
+ * retrieve and update elements by keys, or perform lookups by keys. 
  * 
+ * Examples: 
+ * A map of error codes and their descriptions.
+ * A map of zip codes and cities.
+ * A map of managers and employees. Each manager (key) is associated with a list of 
+ * employees (value) he manages.
  * 
+ * A map of classes and students. Each class (key) is associated with a list of students (value).
  * 
- * 
+ * java.util.HashMap
+ * java.util.Hashtable
+ * java.util.EnumMap
+ * java.util.IdentityHashMap
+ * java.util.LinkedHashMap
+ * java.util.Properties
+ * java.util.TreeMap
+ * java.util.WeakHashMap
  * ++++++++++++++++++++++
  * Implementation Classes [6 classes]
  * ++++++++++++++++++++++
@@ -331,24 +387,7 @@ import java.util.WeakHashMap;
  * Implementation : Both are Hashtable based implementation of Map interface.
  * 
  * 
- * @@@@@@@@@@@@@
- * LinkedHashMap
- * @@@@@@@@@@@@@
- * LinkedHashMap preserves the insertion order
- * 
- * LinkedHashMap is a subclass of HashMap. That means it inherits the features of HashMap.
- *  
- * In addition, the linked list preserves the insertion-order.
- *  
- * The difference is that if we use HashMap the output could be the following - the insertion order is not preserved.
- * 
- * Use case: If we have sorted data fetched from the database which contains employee names. If we want to assign values 
- * to those names then and we want to preserve the order the fetched from the database then linkedHashMap meets the best 
- * requirements.
- * 
- * Internally the ordering is maintained by a doubly linked in a hashMap.
- * Need to understand the doubly linked list concept implementation.
- * 
+
  * @@@@@@@@@@
  * Properties
  * @@@@@@@@@@
@@ -858,7 +897,7 @@ class LinkedHashMapTester {
 class Order {
     int orderId;
     String details;
-    
+
     public Order(int orderid, String details) {
         this.orderId = orderid;
         this.details = details;
@@ -866,22 +905,22 @@ class Order {
 }
 
 class WeakHashMapTester {
-    
+
     public static void weakHashMapDemo() {
-        
+
         Map<Order, Integer> order = new WeakHashMap<>();
-        
+
         order.put(new Order(1, "Bat"), 100);
         order.put(new Order(2, "Cat"), 200);
         order.put(new Order(3, "Hat"), 300);
-        
-        //These objects of order instances does not have any strong reference from any other place besides the
-        //weakhashMap reference hence garbage collector when run is free to reclaim the weak references;
-        System.out.println("Before Garbage collection size of map "+ order.size());
-         
+
+        // These objects of order instances does not have any strong reference from any other place besides the
+        // weakhashMap reference hence garbage collector when run is free to reclaim the weak references;
+        System.out.println("Before Garbage collection size of map " + order.size());
+
         System.gc();
         for (int i = 0; i < 10000; i++) {
-          
+
             if (order.size() != 0) {
                 System.out.println("At iteration " + i + " the map still holds the reference on someDataObject");
             } else {
@@ -889,14 +928,11 @@ class WeakHashMapTester {
                 break;
             }
         }
-        
-        System.out.println("After Garbage collection size of map "+ order.size());
-        
-        
+
+        System.out.println("After Garbage collection size of map " + order.size());
+
     }
-    
-    
-    
+
 }
 
 public class MapTester {
@@ -907,8 +943,6 @@ public class MapTester {
         EnumMapTester.enumMapExample();
         EnumMapTester.performanceGainExample();
 
-        HashMapTester1.hashMapDemoWhenEqualsContractNotImplemented();
-        HashMapTester1.hashMapDemoWhenEqualsContractNotImplemented();
 
         // The following code results in exception since the object does not implement a comparable interface
         // Exception in thread "main" java.lang.ClassCastException: collection.learning.DogWithEqualsContractImplemented
@@ -930,9 +964,9 @@ public class MapTester {
         hashMapKeyNullValue.displayHashMapKeyNullValue();
 
         // fast fast iterator example
-        //FailfastIterator.fastFastIteratorDemo();
-        
-        //weakHashMap reference
+        // FailfastIterator.fastFastIteratorDemo();
+
+        // weakHashMap reference
         WeakHashMapTester.weakHashMapDemo();
 
     }
@@ -960,6 +994,3 @@ class FailfastIterator {
         }
     }
 }
-
-
- 
