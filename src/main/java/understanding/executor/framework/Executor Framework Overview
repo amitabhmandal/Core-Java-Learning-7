@@ -1,0 +1,145 @@
+In the conventional thread API we need three things
+1. Thread class object
+2. Runnable implementation for the task definition
+3. A way to start the thread.
+
+Using the executor framework job becomes easier as using the thread api there are multiple
+ways to start the thread.
+
+There is only one way to start the thread in executor framework
+THE ONLY ONE WAY INVOLVES:
+1. Somehow we need to create the task definition 
+2. Give the task definition to the executor framework and it shall do everything.
+
+Optimize multithreading capabilities of Java and optimal utilization of resources which can
+also be tuned.
+
+Thread creation has some amount of CPU overhead.
+It is wasteful if we have to create a new thread everytime we need to execute a new task.
+
+That is why executor service uses thread pool internally in which the threads are
+recycled and reused.
+
+In some of the executor the threads are allocated upfront and if required they can 
+also be started at the time of the executor creation itself.
+
+All that is required to provide one or more task to the executor for execution.
+
+In this executor framework decouples the task submimssion from thread creation and management.
+
+Each thread from the executor pool executes multiple tasks one by one.
+
+The thread continues to do till the queue becomes empty.
+
+After that the threads justs blocks on the tasks queue and wait for more tasks.
+
+Once all the tasks are executed or the application is shut down then we need to tell the 
+executor service that it's service is no longer required and executor service needs to be stopped.
+
+It will stop accepting any more new tasks. Whatever tasks it was executing it will keep on
+executing till completion.
+
+All the pending tasks in the queue would also be executed.
+
+If required then we can instruct the executor service to interrupt the running tasks as well.
+
+This can be done by calling it's shutdown now method. In this case it will also not run the
+pending tasks.
+
+This mechanism is called the Executor framework and is around the Executor
+interface, its subinterface ExecutorService, and the ThreadPoolExecutor class that
+implements both interfaces.
+
+It is present in java.util.concurrent package.
+
+This mechanism separates the task creation and its execution.
+With an executor, you only have to implement the Runnable objects and send them to the executor.
+It is responsible for their execution, instantiation, and running with necessary threads.
+
+Another important advantage of the Executor framework is the Callable interface.
+
+It's similar to the Runnable interface, but offers two improvements, which are as follows:
+The main method of this interface, named call(), may return a result
+
+When you send a Callable object to an executor, you get an object that implements
+the Future interface. You can use this object to control the status and the result of
+the Callable object
+
+Important Interfaces/Classes of the Executor Framework:
+
+Executor(I) - It is the main interface within this framework
+It's main importance is to decouple the task submission step from
+from thread creation to running the step
+It has only one method void execute(Runnable task)
+
+ExecutorService(I) - It provides a lifecycle to the executors. It provides for an initialization
+phase, a service phase and a destruction phase.
+In the initialization phase it allocates the required number of threads and start them if required.
+
+This phase is usually hidden and can customize it by providing some parameters through executor
+class that actually bootstraps the service.
+
+In the service phase it provides it's services by running the submitted tasks.
+
+In the destruction phase it shutsdown and stop accepting new tasks for running.
+
+<T> Future<T> submit(Callable<T> task);
+
+We call a task by implementing the Callable interface when we want that task to return a value.
+A runnable on the other hand do not return any value.
+
+The destruction phase methods:
+void shutdown();
+With the shutdown method we can instruct the service to shut itself down. After this method
+is called no new method will be submitted for running. Whatever tasks that were being executed
+by the service will keep running till finish and whatever tasks were pending to be executed
+would till be executed. Only new tasks will not be accepted. If you try to send another task
+to service after shutting it down we will get an exception.
+
+
+List<Runnable> shutdownNow();
+It is little unforgiving.:
+It attempts to stop the actively executing tasks and also the processing of all  waiting
+tasks.
+
+It also returns a list of all pending tasks which have not been run.
+
+boolean isShutdown();
+<T> Future<T> submit(Runnable task, T result);
+
+You can also check whether the executor service has indeed shutdown or not by calling the 
+isShutDown method on it?
+
+
+Executors(C)
+It is a factory class that constructs and returns various kinds of instances of executor
+service with commonly used configuration settings 
+
+public static ExecutorService newFixedThreadPool(int nThreads)
+It takes an integer parameter as N threads. And specifies the number of threads you want
+in that pool. This specifies that N threads tasks can execute concurrently.
+hence atmost N threads can execute concurrently.
+
+public static ExecutorService newSingleThreadExecutor()
+That should execute tasks in the back ground one by one but never more than one task
+simultaneously
+
+public static ExecutorService newCachedThreadPool()
+continues keeps on creating threads as long as no thread is available and there are some tasks
+still awaiting execution. Once a thread is done executing a task it is used if a 
+thread is available when executing a task then that thread is used instead of creating a new one.
+So theoretically there is no  upper limit of threads which can be created by
+executor service.
+
+Such a pool is excellent where in we need to service a large number of short lived asynchronous
+tasks  
+
+public static ScheduledExecutorService newSingleThreadScheduledExecutor()
+It created single scheduled executor. 
+
+
+Future(I)
+
+
+
+

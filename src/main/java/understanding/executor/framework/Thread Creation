@@ -1,0 +1,17 @@
+Requires 3 things
+1. Always have an instance of Thread class
+2. Provide the task definition by providing an implementation of the run() method of 
+Runnable interface
+3. Call the start() method on the thread class.
+
+There are number of ways in which thread can be created differs in the 
+
+The mechanism using which the 
+1. How the thread object is created
+2. The task is created(How do we provide the runnable implementation)
+
+The way these two objects are brought together and made to collaborate
+How do we provide runnable implementation to the thread class object so that 
+a seperate thread of execution can be spawned and the task can be executed in that.
+
+
