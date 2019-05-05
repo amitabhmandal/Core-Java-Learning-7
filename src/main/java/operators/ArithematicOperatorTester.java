@@ -61,6 +61,7 @@ public class ArithematicOperatorTester {
 		// Infinity
 
 		System.out.println(10 / 0.0);
+		System.out.println(-10 / 0.0);
 
 		// CASE C:
 		// int by int = int
@@ -75,7 +76,7 @@ public class ArithematicOperatorTester {
 		// if the result is undefined in floating point arithematic
 		// to represent undefined called as Not-a-Number
 		System.out.println(0.0 / 0);
-
+	        System.out.println(-0.0 / 0);
 		// For any x values any operation will result in false
 		// x < Nan == False
 		// x > NaN == False

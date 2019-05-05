@@ -22,7 +22,7 @@ package exception;
  * the exception object by including the following information
  * Name of Exception               : ArithematicException
  * Description of Exception        : Division by Zero
- * Location of Exception           : doMoreStuff()/doStuff()/
+ * Location of Exception           : doMoreStuff()/doStuff()/ ie the stack trace
  * 
  * Once the exception Object has been prepared the method hands over the exception object to
  * JVM. Then JVM shall try to find out whether the location of exception has the capability 
@@ -35,7 +35,7 @@ package exception;
  * onto it's calling method.
  * 
  * If none of the methods are capable of handling the exception then JVM will pass it onto 
- * the Default Exception handlder which publish the following information
+ * the Default Exception handler which publish the following information
  * Name of Exception
  * Exception Description
  * Location of the Exception.

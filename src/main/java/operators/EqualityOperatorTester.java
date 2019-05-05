@@ -11,20 +11,12 @@ package operators;
  * the point to the same reference and there should be some relationship through IS-A
  * else it will result in incompatible comparison type as a compiler error 
  * 
- * 
- * 
  * Difference between == operator and equals method.
  * == operator meant for reference comparison in case of objects and value comparison in case
  * of primtives
  * 
  * equals method meant for content comparison in case of objects and cannot be used with 
  * primitives
- * 
- * 
- * 
- * 
- * 
- * 
  * 
  */
 

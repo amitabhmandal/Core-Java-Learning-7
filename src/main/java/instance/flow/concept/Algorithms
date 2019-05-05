@@ -1,0 +1,9 @@
+As of today, there are 4 GC algorithms available in the Java Hotspot VM:
+
+The Serial GC - recommended for client-style applications that do not have low pause time requirements.
+
+The Parallel GC - use when the throughput matters.
+
+The Mostly-Concurrent GC (also known as Concurrent Mark-Sweep GC(CMS)) - use when the latency matters.
+
+The Garbage First GC (G1) - new GC algorithm, for CMS replacement.

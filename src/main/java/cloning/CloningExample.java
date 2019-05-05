@@ -1,6 +1,20 @@
 package cloning;
 
+
+// What is Java Cloning
+// maintain back up 
+// signature of clone method     protected native Object clone() throws CloneNotSupportedException;
+
+//Cloneable interface vs object.clone method
+
+
+// 
 public class CloningExample {
+	
+	public static void understandingClone() {
+		CloningExample c1 = new CloningExample();
+		//CloningExample c2 = c1.clone();
+	}
 
     public static void main(String[] args) {
         ShallowCopyExample first = new ShallowCopyExample(1,2);

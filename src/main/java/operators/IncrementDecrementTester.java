@@ -77,7 +77,7 @@ public class IncrementDecrementTester {
 		// as shown below
 		int p = 10;
 		p++;
-		char ch = 'a'; // a = a + 1 = b
+		char ch = 'z'; // a = a + 1 = b
 		ch++;
 		double d = 10.5; // d = 10.5 + 1 = 11.5
 		d++;
@@ -89,7 +89,7 @@ public class IncrementDecrementTester {
 		l++;
 		boolean b = true; // b++ will lead to compile time error as bad operand type boolean
 							// for unary
-							// operator '++'
+							// operator '++' cannot be applied to boolean
 
 		System.out.println(p);
 

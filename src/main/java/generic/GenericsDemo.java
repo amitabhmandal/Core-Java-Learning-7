@@ -58,7 +58,7 @@ import java.util.ArrayList;
  * 
  * IMPORTANT RULE>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
  * Polymorphism is only applicable for the base type and not
- * for the paramter type.
+ * for the parameter type.
  * Hence 
  * ArrayList<String> a = new ArrayList<String>(); // Valid
  * List<String> a = new ArrayList<String>();      // Valid
@@ -67,7 +67,18 @@ import java.util.ArrayList;
  * 
  * The above line is invalid as the parameter type has been changed from 
  * String to Object which is not allowed.
- * Hence it will be a compiler error.
+ * Hence it will be a compiler error incompatible type
+ * 
+ * 
+ * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
+ * FOr the type parameter we can provide any class or interface name but not primitives
+ * if we are trying to provide primitives then we will get compile time error
+ * Example
+ * ArrayList<int> al = new ArrayList<int>();
+ * 
+ * This will result in compilation error
+ * Unexpected type found int required reference type
+ * 
  * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
  * 
  * IMPORTANT RULE>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -86,7 +97,7 @@ import java.util.ArrayList;
  * hence it is not necessary that we can only use it for collection
  * 
  * Example 
- * class Account<T> {
+ * class Account<T> { <<-- This is unbounded types and anything can be passed as Type Parameter, as there is no limitation
  * 
  * }
  * 
@@ -123,10 +134,16 @@ import java.util.ArrayList;
  * class Test<T extends Number>         // Number or child classes
  * class Test<T implements Runnable>    // Invalid : implements not allowed.
  *                                      But extends can be used for interfaces
+ *                                      REPLACE IMPLEMENT WITH EXTENDS
  * class Test<T super String>           // Invalid : super not a valid keyword for bounded type
  * 
+ * 
+ * BOUNDED TYpes can be defined by using extends only. IMPLEMENTS AND SUPER IS NOT ALLOWED FOR BOUNDED TYPES
+ * 
  * Hence syntax for Bounded Type
+ * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  * class Test <T extends X> Hence X can be class or interface.
+ * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  * If X is class type then we can pass X or it's child class
  * If X is interface then we can pass X reference or it's implementation classes.
  * 
@@ -186,6 +203,21 @@ import java.util.ArrayList;
  *                                                      ALLOWED
  * } 
  * 
+ * Number class has child class Byte, short, Integer, Long, Double and Float
+ * 
+ * KNOWN CONCLUSIONS
+ * =================
+ * class Test <T extends Number>                                        VALID
+ * class Test <T extends Runnable>                                      VALID                                            
+ * class Test <T extends Number & Runnable>                             VALID        
+ * class Test <T extends Number & Runnable & Comparable>                VALID
+ * class Test <T extends Number, Implements Runnable>                   INVALID
+ * class Test <T super String>                                          INVALID
+ * 
+ * Hence super and implements keywords not valid in bounded types. But we can replace implements purpose with extends keyword
+ * 
+ * 
+ * 
  * 
  * ++++++++++++++++++++++++++++++++++++
  * TYPE PARAMETER NAMING RULES
@@ -231,7 +263,7 @@ import java.util.ArrayList;
  * al.add(null);      // Valid
  * 
  * =========
- * Option 1:
+ * Option 2:
  * =========
  * public static void m1(ArrayList<?> al) 
  * 
@@ -252,7 +284,7 @@ import java.util.ArrayList;
  * 
  * 
  * =========
- * Option 2:
+ * Option 3:
  * =========
  * public static void m1(ArrayList<? extends X> al) where X can be class or interface.
  * If X is class then it should be X or it's child classes
@@ -266,7 +298,7 @@ import java.util.ArrayList;
  * Hence best suited for Read only operations.
  *   
  * =========
- * Option 3:
+ * Option 4:
  * =========
  * public static void m1(ArrayList<? super X> al) where X can be class or Interface.
  * NOTE >> Here super can be used at method level but not at class level.
@@ -355,9 +387,36 @@ import java.util.ArrayList;
  * both types are not related.
  * 
  * 
+ * &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+ * Difference between Extends and Super in Generic methods
  * 
+ * &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
  * 
+ * ? extends                                         ? super 
  * 
+ * Declare an upper bound for the type parameter     Declare a lower bound for the type parameter
+ * 
+ * To get data out of the parameter                  to put data into the parameter
+ * 
+ * Covariance                                        Contracovariance
+ * 
+ * ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ * What is reifiable and non-reifiable java ?
+ * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ * a reifiable type is one whose runtime representation contains same information than its compile-time 
+ * representa-tion
+
+ * a non-reifiable type is one whose runtime representation contains less information than its compile-time 
+ * representa-tion
+
+ * Arrays are reifiable as arrays remains as it is at runtime While generic information attached with List is 
+ * erased at runtime by erasures
+ * So List<String> list=new ArrayList<String> at runtime will be 
+
+ * List list=new ArrayList(); 
+ * all generic information is erased. This is done to support the legacy code that is written without using generics.
+ * But in case of arrays Object[] ojb=new Object[0] will remain the same at runtime as well. Generics are not mixed with arrays.
  * 
  * 
  * 
@@ -509,7 +568,7 @@ class BoundTypeParameterGeneric<T extends Number> {
     public T operationsSub(T a, T b) {
         // If the type parameter <T> is not bound then substraction operation is meaningless
         // as it is only applicable for Number types
-        T value = null; //a - b;
+        T value = null; // a - b;
         return value;
     }
 
@@ -517,7 +576,7 @@ class BoundTypeParameterGeneric<T extends Number> {
         // If the type parameter <T> is not bound then multiplication operation is meaningless
         // as it is only applicable for Number types
 
-        T value = null; //a * b;
+        T value = null; // a * b;
         return value;
     }
 

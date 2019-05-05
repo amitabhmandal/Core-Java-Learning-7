@@ -45,16 +45,14 @@ package learning.thread;
  * Thus all child threads of main thread the default priority will be 5.
  * 
  * Whatever priority parent thread has will, the same priority will be 
- * there for the child thread.
+ * there for the child thread. Hence for any other thread not inherited from main 
+ * method is not necessary will result with a thread priority of 5.
  * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
+ * @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+ * Rule #4: IllegalArgumentException
+ * @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+ * If we try to assign a thread any other priority other than 1 to 10 then it will result in run time
+ * exception ie it will generate IllegalArgumentException
  * 
  * 
  * 
@@ -77,10 +75,10 @@ public class ThreadPriorities {
          
          ThreadPriorityDemo threadPriorityDemo1 = new ThreadPriorityDemo();
          System.out.println("Child Thread Priority : " + threadPriorityDemo1.getPriority());
+         
+         //setting the priority of the thread other than 1 to 10
+         threadPriorityDemo1.setPriority(11);
           
-        
-        
-
     }
 
 }

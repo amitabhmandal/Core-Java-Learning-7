@@ -19,6 +19,13 @@ Tasks sharing a common resource (like 1 CPU).
 More than one task/program/job/process can reside into the same CPU at one point of time. 
 This ability of the OS is called multitasking.
 
+Running several process on the same machine. Each could make progress without any user help.
+
+Non multi tasking environment: only one process can be run, only the active process can make progress.
+
+Tasks are represented by Operating system as processes.
+
+
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 Both multi programming and tasking are same concept of switching task in processor, 
 difference is in the concept and reason of the switching.
@@ -56,6 +63,23 @@ MultiThreading
 And MThreading n another breakup of each task. that also to give user a happy life. 
 Here multiple tasks[like word doc and media player] are not coming in picture, rather small 
 subtasks like coloring of text on word and automatic spell check in word are part of same word executable.
+
+Running several threads of computation at the same time in the same process.
+
+These threads share memory and resources
+Likely to have lower overheads than process
+
+Thus threads are part of the same program and cannot exists outside of the process's lifetime.
+Thus threads are always seen as lightweight processes.
+
+
+Will threads run in parallel?
+
+No gaurantee. The scheduler uses time slicing. JVM manages threads in the scheduler.
+Even though the threads are light weight, dont think they are free. They need their own stack have some memory 
+overhead. Creating and destroying takes time. Scheduler also needs to ensure that the thread's state is safe
+before another can execute.
+
 
 
 
