@@ -5,6 +5,9 @@ package cloning;
 // maintain back up 
 // signature of clone method     protected native Object clone() throws CloneNotSupportedException;
 
+
+// creating duplicate object is called cloning
+// creating duplicate reference object is not called cloning
 //Cloneable interface vs object.clone method
 
 
