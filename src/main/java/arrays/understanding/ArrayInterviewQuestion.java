@@ -1,5 +1,6 @@
 package arrays.understanding;
 
+
 public class ArrayInterviewQuestion {
 	public static void main(String[] args) {
 		test1();
