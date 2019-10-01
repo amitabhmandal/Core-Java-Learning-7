@@ -8,17 +8,33 @@ package arrays.understanding;
 // #4. byte[] rowvector, colvector, matrix[]; is same as byte rowvector[], colvector[], matrix[][];
 // #5. Once an array object is created, its length never changes.
 // #6. A single variable of array type may contain references to arrays of different lengths, because an array's length is not part of its type.
-// #7. Arrays must be indexed by int values; short, byte, or char values may also be used as index values because they are subjected to unary numeric promotion and become int values
+// #7. Arrays must be indexed by int values; short, byte, or char values may also be used as index 
+//     values because they are subjected to unary numeric promotion and become int values
 // #8. An attempt to access an array component with a long index value results in a compile-time error
-// #9. All array accesses are checked at run time; an attempt to use an index that is less than zero or greater than or equal to the length of the array causes an ArrayIndexOutOfBoundsException to be thrown.
-// #10. ArrayStoreException: An assignment to an element of an array whose type is A[], where A is a reference type, is checked at run-time to ensure that the value assigned can be assigned to
+
+// #9. All array accesses are checked at run time; an attempt to use an index that is less than zero or greater than or 
+//     equal to the length of the array causes an ArrayIndexOutOfBoundsException to be thrown.
+
+// #10. ArrayStoreException: An assignment to an element of an array whose type is A[], where A is a reference type, is 
+//      checked at run-time to ensure that the value assigned can be assigned to
 //      the actual element type of the array, where the actual element type may be any reference type that is assignable to A.
-// #11. If there is insufficient space to allocate the array, evaluation of the array initializer completes abruptly by throwing an OutOfMemoryError
-// #12. An Array of Characters is Not a String. A String object is immutable, that is, its contents never change, while an array of char has mutable elements.
-// #13. Arrays are fixed in size. Arrays can hold homogenous type of data. 
+
+// #11. If there is insufficient space to allocate the array, evaluation of the array initializer 
+//      completes abruptly by throwing an OutOfMemoryError
+
+// #12. An Array of Characters is Not a String. A String object is immutable, that is, its contents never change, 
+//      while an array of char has mutable elements.
+
+// #13. Arrays are fixed in size. Arrays can hold homogenous type of data.
+
 // #14. Arrays are indexed collection of fixed number of homogenous data elements. 
+
 // #15. We cannot specify the size of the array during declaration. if we try to specify the size then it will lead to compilation error.
-// #16. The size of an array can not be changed once you define it. You can not insert or delete array elements after creating an array. Only you can change is the value of the elements. This is the main drawback of arrays.
+
+// #16. The size of an array can not be changed once you define it. You can not insert or delete array elements after 
+//      creating an array. Only you can change is the value of the elements. This is the main drawback of arrays.
+
+// #17. An array containing super class reference variables can point to sub class objects.
 
 public class ArrayUnderstanding extends Object {
 
@@ -56,6 +72,7 @@ public class ArrayUnderstanding extends Object {
         int[] b = x; // valid case
         
         // The following variable assignment is invalid due to the following reason 
+        
         // char element can be promoted to int element type however the char array cannot be promoted to int array
         // char array is an object of [C and int array is an object of [I 
         // hence assignment of the two following classes is incompatible 

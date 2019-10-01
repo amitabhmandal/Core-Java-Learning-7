@@ -1,5 +1,6 @@
 package arrays.understanding;
 
+import java.util.Arrays;
 
 public class ArrayInterviewQuestion {
 	public static void main(String[] args) {
@@ -20,5 +21,6 @@ public class ArrayInterviewQuestion {
 		System.out.println(a[1]);
 		((int[]) o)[1] = 500;
 		System.out.println(a[1]);
+		Arrays.sort(a);
 	}
 }

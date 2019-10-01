@@ -56,6 +56,7 @@ public class CheckingArrayEquality {
 		// Calling equals() method on same arrays will return false
 
 		System.out.println(Arrays.equals(s1, s2)); // Output : false
+		
 
 		// That's why use deepEquals() method to compare multidimensional arrays
 	}

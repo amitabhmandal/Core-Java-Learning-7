@@ -1,0 +1,45 @@
+RULE #1
+
+As with instance methods and variables, an inner class is associated with an instance of its enclosing class 
+and has direct access to that object's methods and fields. 
+
+
+RULE #2
+Also, because an inner class is associated with an instance, it cannot define any static members itself.
+
+
+Objects that are instances of an inner class exist within an instance of the outer class. Consider the following classes:
+
+
+class OuterClass {
+    ...
+    class InnerClass {
+        ...
+    }
+}
+
+
+RULE #3
+An instance of InnerClass can exist only within an instance of OuterClass and has direct access to the methods and fields of its enclosing instance.
+
+To instantiate an inner class, you must first instantiate the outer class. Then, create the inner object within the outer object with this syntax:
+
+OuterClass.InnerClass innerObject = outerObject.new InnerClass();
+
+
+Inner classes is also known as Local Classes
+
+
+============================
+Definition of Inner Classes
+============================
+You can define a local class inside any block (see Expressions, Statements, and Blocks for more information). 
+For example, you can define a local class in a method body, a for loop, or an if clause.
+
+Local classes are similar to inner classes because they cannot define or declare any static members.
+
+
+Local classes are non-static because they have access to instance members of the enclosing block. Consequently, they cannot contain most kinds of static declarations.
+
+
+

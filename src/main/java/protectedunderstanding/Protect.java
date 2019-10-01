@@ -22,7 +22,7 @@ public class Protect {
        StringBuilder sb = new StringBuilder();
        sb.append(new String("abc"));
        
-       StringBuilder MY_OBJ= "Hello";
+       //StringBuilder MY_OBJ= "Hello";
 
     }
 

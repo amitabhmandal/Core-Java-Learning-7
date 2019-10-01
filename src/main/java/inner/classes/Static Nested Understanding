@@ -1,0 +1,32 @@
+STATIC NESTED CLASS:
+
+------------
+DEFINITION : If a nested class has been declared as static then it is called static nested class
+------------
+
+
+*******
+RULE #1
+*******
+As with class methods and variables, a static nested class is associated with its outer class. 
+And like static class methods, a static nested class cannot refer directly to instance variables or methods 
+defined in its enclosing class: it can use them only through an object reference.
+
+
+
+*******
+RULE #2
+*******
+Static nested classes are accessed using the enclosing class name:
+OuterClass.StaticNestedClass
+
+For example, to create an object for the static nested class, use this syntax:
+
+OuterClass.StaticNestedClass nestedObject =
+     new OuterClass.StaticNestedClass();
+     
+     
+
+
+
+
